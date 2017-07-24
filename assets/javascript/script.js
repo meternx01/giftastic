@@ -1,4 +1,5 @@
-function gif(animated, stillURL, animatedURL, rating) {
+function gif(number,animated, stillURL, animatedURL, rating) {
+    this.number=number;
     this.animated=animated;
     this.stillURL=stillURL;
     this.animatedURL=stillURL;
@@ -33,9 +34,10 @@ function writeCloud()
 }
 
 function writeGifs(){
+    $("#gifDiv").empty();
     for(var i=0;i<gifArray.length;i++){
         var newDiv = $("<div>");
-        newDiv.addClass("gifImage");
+        newDiv.addClass("gifImage pull-left");
 
         var newGif = $("<img>");
         newGif.addClass("img-responsive")
@@ -47,7 +49,10 @@ function writeGifs(){
         else {
             newGif.attr("src",gifArray[i].stillURL);
         }
-
+        var newRating = $("<p>");
+        newRating.html("<strong>Rating:</strong> "+ gifArray[i].rating.toUpperCase());
+        newDiv.append(newGif, newRating);
+        $("#gifDiv").append(newDiv);
     }
 }
 
@@ -57,6 +62,9 @@ $("#add-search").on("click",function(event){
     buttons.push(searchWord);
     writeCloud();
 })
+$(".gifImage").on("click", function(){
+
+}
 
 $(document).on("click",".searchTerm", function(event){
     gifArray.length=0;
@@ -78,12 +86,13 @@ $(document).on("click",".searchTerm", function(event){
         for(var i=0; i<response.data.length;i++){
 
             //Constructor way
-            gifArray.push(new gif(false,response.data[i].images.original_still.url,response.data[0].images.original.url,response.data[i].rating));
+            gifArray.push(new gif(i,false,response.data[i].images.fixed_height_still.url,response.data[0].images.fixed_height.url,response.data[i].rating));
             //Fallback if Object constructor don't be good
             // gifArray.push({animated: false, stillURL: response.data[i].images.original_still.url, animatedURL: response.data[0].images.original.url, rating: response.data[i].rating });
             //response.data[i].images.original_still.url
             console.log(gifArray);
         }
+        writeGifs();
     });
 
 })
