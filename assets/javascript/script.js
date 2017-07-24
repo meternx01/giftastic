@@ -1,8 +1,19 @@
-// var gif={
-//     animated: false,
-//     stillURL:"",
-//     animatedURL:"",
-// }
+function gif(animated, stillURL, animatedURL, rating) {
+    this.animated=animated;
+    this.stillURL=stillURL;
+    this.animatedURL=stillURL;
+    this.rating=rating;
+    this.switchStates=function(){
+        if(this.animated){
+            this.animated=false;
+            return this.animatedURL;
+        }
+        else {
+            this.animated=true;
+            return this.stillURL;
+        }
+    };
+}
 
 var gifArray = [];
 
@@ -19,7 +30,25 @@ function writeCloud()
         newButton.text(buttons[i]);
         $("#buttonDiv").append(newButton);
     }
+}
 
+function writeGifs(){
+    for(var i=0;i<gifArray.length;i++){
+        var newDiv = $("<div>");
+        newDiv.addClass("gifImage");
+
+        var newGif = $("<img>");
+        newGif.addClass("img-responsive")
+        newGif.attr("id","gif"+i); // INVEST
+        if (gifArray[i].animated)
+        {
+            newGif.attr("src",gifArray[i].animatedURL);
+        }
+        else {
+            newGif.attr("src",gifArray[i].stillURL);
+        }
+
+    }
 }
 
 $("#add-search").on("click",function(event){
@@ -47,8 +76,12 @@ $(document).on("click",".searchTerm", function(event){
     }).done(function(response) {
         console.log(response);
         for(var i=0; i<response.data.length;i++){
-            gifArray.push({animated: false, stillURL: response.data[i].images.original_still.url, animatedURL: response.data[0].images.original.url });
-            //response.data[0].images.original_still.url
+
+            //Constructor way
+            gifArray.push(new gif(false,response.data[i].images.original_still.url,response.data[0].images.original.url,response.data[i].rating));
+            //Fallback if Object constructor don't be good
+            // gifArray.push({animated: false, stillURL: response.data[i].images.original_still.url, animatedURL: response.data[0].images.original.url, rating: response.data[i].rating });
+            //response.data[i].images.original_still.url
             console.log(gifArray);
         }
     });
