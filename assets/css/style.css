@@ -7,3 +7,18 @@
     /*width: 20%;
     height: 30%;*/
 }
+
+.container{
+    width: 85%;
+}
+
+body{
+    background-image: url("../images/background.png");
+}
+
+p,label{
+    color: #FFFFFF;
+}
+#searchDiv{
+    background-color: #5E90A8;
+}
