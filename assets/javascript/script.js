@@ -111,15 +111,16 @@ $("#add-search").on("click",function(event){
 
 // when the gif is pressed
 // change state
-$(".gifImage").on("click", function(){
-
+$(".gifDiv").on("click", function(){
+    event.preventDefault();
 //pull in attribute ID
     var state = $(this).attr("id");
 //extract the index
     var index = state.slice(3);
     console.log(state + " " + index);
 // do swap on index
-// set new src of gifimage
+    $(this).attr("src",gifArray[index].switchStates());
+// set new src of gifimage  - performed with switchStates()
 })
 
 // on the press of a button in the cloud

@@ -1,24 +1,31 @@
+/*style button with a bit more spacing between buttons*/
 .btn{
     margin: 5px;
 }
 
+/*style some more space between divs*/
 .pull-left{
     margin:2.5%;
     /*width: 20%;
     height: 30%;*/
 }
 
+/*override bootstrap container from 1168px to 85%*/
 .container{
     width: 85%;
 }
 
+/*add a background image*/
 body{
     background-image: url("../images/background.png");
 }
 
+/*change text color due to background image*/
 p,label{
     color: #FFFFFF;
 }
+
+/*contrast the search div from background*/
 #searchDiv{
     background-color: #5E90A8;
 }
