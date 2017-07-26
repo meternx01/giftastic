@@ -10,7 +10,7 @@ function gif(number,animated, stillURL, animatedURL, rating) {
     // url for the still image
     this.stillURL=stillURL;
     // url for the animated image
-    this.animatedURL=stillURL;
+    this.animatedURL=animatedURL;
     // rating letter(s)
     this.rating=rating;
     // method switchStates
@@ -111,7 +111,8 @@ $("#add-search").on("click",function(event){
 
 // when the gif is pressed
 // change state
-$(".gifDiv").on("click", function(){
+//$(".gifDiv").on("click", function(){
+$(document).on('click', '.gifImage', function() {
     event.preventDefault();
 //pull in attribute ID
     var state = $(this).attr("id");
@@ -155,7 +156,10 @@ $(document).on("click",".searchTerm", function(event){
 
             //Constructor way
             // push a new gif object on the gifArray with the information from the response JSON
-            gifArray.push(new gif(i,false,response.data[i].images.fixed_height_still.url,response.data[0].images.fixed_height.url,response.data[i].rating));
+            gifArray.push(new gif(i,false,
+                response.data[i].images.fixed_height_still.url,
+                response.data[0].images.fixed_height.url,
+                response.data[i].rating));
             //Fallback if Object constructor don't be good
             // gifArray.push({animated: false, stillURL: response.data[i].images.original_still.url, animatedURL: response.data[0].images.original.url, rating: response.data[i].rating });
             //response.data[i].images.original_still.url
